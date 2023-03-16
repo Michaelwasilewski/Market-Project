@@ -1,9 +1,26 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { FetchProducts } from './store/modules/listings';
+
 function App() {
+	const dispatch = useDispatch();
+
+	const { products } = useSelector(
+		(state) => state.listings
+	);
+
+	useEffect(() => {
+		dispatch(FetchProducts());
+	}, [dispatch]);
+	console.log(products);
 	return (
 		<div>
-			<h1 className="underline text-red-500">
-				Hello Noroff!!
-			</h1>
+			{products.map((product) => (
+				<div>
+					<span>{product.title}</span>
+				</div>
+			))}
 		</div>
 	);
 }
