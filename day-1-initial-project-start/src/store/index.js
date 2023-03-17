@@ -4,11 +4,11 @@ import { configureStore } from '@reduxjs/toolkit';
 // It will combine all my modules E.G (products, productDetails, etc)
 
 import { combineReducers } from '@reduxjs/toolkit';
-import listings from './modules/listings';
+import Products from './modules/products';
 // Here i am combining my modules
 const reducer = combineReducers({
 	// i will list my modules
-	listings,
+	Products,
 });
 
 // Creating my store

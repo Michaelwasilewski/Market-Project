@@ -5,10 +5,11 @@ import { createSlice } from '@reduxjs/toolkit';
 // initial state
 // reducers // Those are the functions which amend of change the state
 
-const listingSlice = createSlice({
-	name: 'Listings',
+const ProductsSlice = createSlice({
+	name: 'Products',
 	initialState: {
 		products: [],
+		singleProduct: null,
 		total: 0,
 	},
 	reducers: {
@@ -18,14 +19,18 @@ const listingSlice = createSlice({
 			// action : It will have the new state we get from the API call.
 			state.products = action.payload;
 		},
+		SET_SINGLE_PRODUCT: (state, action) => {
+			state.singleProduct = action.payload;
+		},
 	},
 });
 
-export default listingSlice.reducer;
+export default ProductsSlice.reducer;
 
 // Actions  -- API calls etc NB:****** WE DON'T CHANGE THE STATE HERE******
-
-const { SET_PRODUCTS } = listingSlice.actions;
+// Fetch multiple products
+const { SET_PRODUCTS } = ProductsSlice.actions;
+const { SET_SINGLE_PRODUCT } = ProductsSlice.actions;
 export const FetchProducts = () => async (dispatch) => {
 	try {
 		const response = await fetch(
@@ -40,3 +45,16 @@ export const FetchProducts = () => async (dispatch) => {
 		return console.error(e);
 	}
 };
+// Will fetch single product by ID
+export const FetchSingleProduct =
+	(id) => async (dispatch) => {
+		try {
+			const response = await fetch(
+				`https://dummyjson.com/products/${id}`
+			);
+			const singleProductData = await response.json();
+			dispatch(SET_SINGLE_PRODUCT(singleProductData));
+		} catch (e) {
+			return console.error(e);
+		}
+	};
