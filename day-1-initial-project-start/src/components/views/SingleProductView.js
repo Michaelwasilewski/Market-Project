@@ -13,9 +13,7 @@ const SingleProductView = () => {
 	}, [dispatch, id]);
 
 	return (
-		<div>
-			<h1>Hello i am single product {id}</h1>
-		</div>
+		<>{singleProduct && <div>{singleProduct.brand}</div>}</>
 	);
 };
 
