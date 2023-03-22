@@ -13,9 +13,9 @@ const loaderSlice = createSlice({
 	},
 });
 
-export default loaderSlice.reducer;
-
-const { SET_LOADER } = loaderSlice.actions;
+const { actions, reducer } = loaderSlice;
+export default reducer;
+const { SET_LOADER } = actions;
 
 // actions
 

@@ -1,11 +1,15 @@
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react'; // It will help me to run the function to fetch product by ID when the component mount
-import { useDispatch, useSelector } from 'react-redux';
+import {
+	useDispatch,
+	useSelector,
+} from 'react-redux';
 import { FetchSingleProduct } from '../../store/modules/products';
+import { addSingleProductToCart } from '../../store/modules/cartSlice';
 const SingleProductView = () => {
 	let { id } = useParams();
 	const dispatch = useDispatch();
-	const { singleProduct } = useSelector(
+	const { singleProduct, isError } = useSelector(
 		(state) => state.Products
 	);
 	useEffect(() => {
@@ -14,7 +18,7 @@ const SingleProductView = () => {
 
 	return (
 		<>
-			{singleProduct && (
+			{singleProduct && !isError && (
 				<div className="bg-white">
 					<div className="pt-6">
 						{/*Image gallery*/}
@@ -24,7 +28,9 @@ const SingleProductView = () => {
 									{singleProduct.images[0] && (
 										<div className="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
 											<img
-												src={singleProduct.images[0]}
+												src={
+													singleProduct.images[0]
+												}
 												alt="Two each of gray, white, and black shirts laying flat."
 												className="h-full w-full object-contain object-center"
 											/>
@@ -35,14 +41,20 @@ const SingleProductView = () => {
 											<div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
 												<div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
 													<img
-														src={singleProduct.images[1]}
+														src={
+															singleProduct
+																.images[1]
+														}
 														alt="Model wearing plain black basic tee."
 														className="h-full w-full object-contain object-center"
 													/>
 												</div>
 												<div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
 													<img
-														src={singleProduct.images[2]}
+														src={
+															singleProduct
+																.images[2]
+														}
 														alt="Model wearing plain gray basic tee."
 														className="h-full w-full object-contain object-center"
 													/>
@@ -52,7 +64,9 @@ const SingleProductView = () => {
 									{singleProduct.images[3] && (
 										<div className="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
 											<img
-												src={singleProduct.images[3]}
+												src={
+													singleProduct.images[3]
+												}
 												alt="Model wearing plain white basic tee."
 												className="h-full w-full object-contain object-center"
 											/>
@@ -84,6 +98,13 @@ const SingleProductView = () => {
 									<button
 										type="submit"
 										className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-blue-600 py-3 px-8 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+										onClick={() =>
+											dispatch(
+												addSingleProductToCart(
+													singleProduct
+												)
+											)
+										}
 									>
 										Add to cart
 									</button>
@@ -93,7 +114,9 @@ const SingleProductView = () => {
 							<div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
 								{/*Description and details*/}
 								<div>
-									<h3 className="sr-only">Description</h3>
+									<h3 className="sr-only">
+										Description
+									</h3>
 
 									<div className="space-y-6">
 										<p className="text-base text-gray-900">
@@ -111,19 +134,23 @@ const SingleProductView = () => {
 										<ul className="list-disc space-y-2 pl-4 text-sm">
 											<li className="text-gray-400">
 												<span className="text-gray-600 capitalize">
-													rating: {singleProduct.rating}
+													rating:{' '}
+													{singleProduct.rating}
 												</span>
 											</li>
 
 											<li className="text-gray-400">
 												<span className="text-gray-600 capitalize">
-													stock: {singleProduct.stock}
+													stock:{' '}
+													{singleProduct.stock}
 												</span>
 											</li>
 											<li className="text-gray-400">
 												<span className="text-gray-600 capitalize">
 													Discount:{' '}
-													{singleProduct.discountPercentage}
+													{
+														singleProduct.discountPercentage
+													}
 													%
 												</span>
 											</li>
@@ -134,7 +161,8 @@ const SingleProductView = () => {
 						</div>
 					</div>
 				</div>
-			)}
+			)}{' '}
+			{isError && <h1>Sorry an error</h1>}
 		</>
 	);
 };

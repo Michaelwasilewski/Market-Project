@@ -11,6 +11,7 @@ const ProductsSlice = createSlice({
 	initialState: {
 		products: [],
 		singleProduct: null,
+		isError: false,
 	},
 	reducers: {
 		// Here we declare the functions which amend our state
@@ -22,6 +23,9 @@ const ProductsSlice = createSlice({
 		SET_SINGLE_PRODUCT: (state, action) => {
 			state.singleProduct = action.payload;
 		},
+		SET_ERROR: (state, action) => {
+			state.isError = action.payload;
+		},
 	},
 });
 
@@ -30,35 +34,56 @@ export default ProductsSlice.reducer;
 // Actions  -- API calls etc NB:****** WE DON'T CHANGE THE STATE HERE******
 // Fetch multiple products
 const { SET_PRODUCTS } = ProductsSlice.actions;
-const { SET_SINGLE_PRODUCT } = ProductsSlice.actions;
-export const FetchProducts = () => async (dispatch) => {
-	dispatch(setLoadingState(true)); // showing loader
-	try {
-		const response = await fetch(
-			'https://dummyjson.com/products'
-		);
-		const data = await response.json();
-		console.log(data.products);
+const { SET_SINGLE_PRODUCT } =
+	ProductsSlice.actions;
+const { SET_ERROR } = ProductsSlice.actions;
 
-		dispatch(SET_PRODUCTS(data.products));
-		dispatch(setLoadingState(false)); // hiding the loader
-	} catch (e) {
-		// handle any error that occours during the API call
-		return console.error(e);
-	}
-};
+export const FetchProducts =
+	() => async (dispatch) => {
+		dispatch(setLoadingState(true)); // showing loader
+		try {
+			const response = await fetch(
+				'https://dummyjson.com/products'
+			);
+			const data = await response.json();
+			console.log(data.products);
+
+			dispatch(SET_PRODUCTS(data.products));
+			dispatch(setLoadingState(false)); // hiding the loader
+		} catch (e) {
+			// handle any error that occours during the API call
+			return console.error(e);
+		}
+	};
 // Will fetch single product by ID
 export const FetchSingleProduct =
 	(id) => async (dispatch) => {
 		dispatch(setLoadingState(true));
+		let response;
 		try {
-			const response = await fetch(
+			response = await fetch(
 				`https://dummyjson.com/products/${id}`
 			);
-			const singleProductData = await response.json();
-			dispatch(SET_SINGLE_PRODUCT(singleProductData));
+			const singleProductData =
+				await response.json();
+			dispatch(
+				SET_SINGLE_PRODUCT(singleProductData)
+			);
 			dispatch(setLoadingState(false));
 		} catch (e) {
 			return console.error(e);
 		}
+		//check if the response is not correct
+		if (response.ok) {
+			console.log('The response is correct');
+			dispatch(handleErrorResponse(false));
+		} else {
+			console.log('The response is not ok');
+			dispatch(handleErrorResponse(true));
+		}
+	};
+
+export const handleErrorResponse =
+	(APIResponseStatus) => (dispatch) => {
+		dispatch(SET_ERROR(APIResponseStatus));
 	};
