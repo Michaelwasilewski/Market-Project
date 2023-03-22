@@ -11,7 +11,6 @@ const ProductsSlice = createSlice({
 	initialState: {
 		products: [],
 		singleProduct: null,
-		total: 0,
 	},
 	reducers: {
 		// Here we declare the functions which amend our state
@@ -33,7 +32,7 @@ export default ProductsSlice.reducer;
 const { SET_PRODUCTS } = ProductsSlice.actions;
 const { SET_SINGLE_PRODUCT } = ProductsSlice.actions;
 export const FetchProducts = () => async (dispatch) => {
-	dispatch(setLoadingState(true));
+	dispatch(setLoadingState(true)); // showing loader
 	try {
 		const response = await fetch(
 			'https://dummyjson.com/products'
@@ -42,7 +41,7 @@ export const FetchProducts = () => async (dispatch) => {
 		console.log(data.products);
 
 		dispatch(SET_PRODUCTS(data.products));
-		dispatch(setLoadingState(false));
+		dispatch(setLoadingState(false)); // hiding the loader
 	} catch (e) {
 		// handle any error that occours during the API call
 		return console.error(e);
