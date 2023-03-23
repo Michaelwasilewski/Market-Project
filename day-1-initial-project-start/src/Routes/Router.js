@@ -27,7 +27,7 @@ const Router = () => {
 					path="/contact"
 					element={<ContactUs />}
 				/>
-				{/* Only match this when no other routes is valid match */}
+				{/* Only match this when no other routes is a valid match */}
 				<Route path="*" element={<NotFound />} />
 			</Routes>
 		</>

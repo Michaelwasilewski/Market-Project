@@ -17,13 +17,26 @@ const cartSlice = createSlice({
 			state.numberOfProductsInCart =
 				state.productsInCart.length;
 		},
+		REMOVE_PRODUCT_FROM_CART: (state, action) => {
+			const productIdToRemove = action.payload;
+			state.productsInCart =
+				state.productsInCart.filter(
+					(product) =>
+						product.id !== productIdToRemove
+				);
+			state.numberOfProductsInCart =
+				state.productsInCart.length;
+		},
 	},
 });
 
 export default cartSlice.reducer;
 
 // Actions
-const { ADD_PRODUCT_TO_CART } = cartSlice.actions;
+export const {
+	ADD_PRODUCT_TO_CART,
+	REMOVE_PRODUCT_FROM_CART,
+} = cartSlice.actions;
 
 export const addSingleProductToCart =
 	(productData) => (dispatch) => {

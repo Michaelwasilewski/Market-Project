@@ -31,10 +31,12 @@ const Header = () => {
 									<div className="space-x-2 lg:space-x-6 flex flex-1 items-center justify-end">
 										<NavLink
 											to="/"
-											className={({ isActive }) =>
-												isActive
-													? 'underline text-xs lg:text-sm font-medium text-gray-700 hover:text-gray-800'
-													: 'text-xs lg:text-sm font-medium text-gray-700 hover:text-gray-800'
+											className={
+												('text-xs lg:text-sm font-medium text-gray-700 hover:text-gray-800',
+												({ isActive }) =>
+													isActive
+														? 'underline'
+														: null)
 											}
 										>
 											All Products
@@ -45,10 +47,12 @@ const Header = () => {
 										></span>
 										<NavLink
 											to="/contact"
-											className={({ isActive }) =>
-												isActive
-													? 'underline text-xs lg:text-sm font-medium text-gray-700 hover:text-gray-800'
-													: 'text-xs lg:text-sm font-medium text-gray-700 hover:text-gray-800'
+											className={
+												(' text-xs lg:text-sm font-medium text-gray-700 hover:text-gray-800',
+												({ isActive }) =>
+													isActive
+														? 'underline'
+														: null)
 											}
 										>
 											Contact Us
