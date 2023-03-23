@@ -92,7 +92,8 @@ const SingleProductView = () => {
 									Product information
 								</h2>
 								<p className="text-3xl tracking-tight text-gray-900">
-									NOK{singleProduct.price}
+									NOK {''}
+									{singleProduct.price}
 								</p>
 								<div className="mt-10">
 									<button

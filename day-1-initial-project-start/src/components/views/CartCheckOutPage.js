@@ -20,7 +20,7 @@ const CartCheckOutPage = () => {
 	return (
 		<div>
 			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-				<div className="flex h-full flex-col overflow-y-scroll bg-white">
+				<div className="flex h-full flex-col bg-white">
 					<div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
 						<div className="flex items-start justify-between">
 							<h2
@@ -48,9 +48,9 @@ const CartCheckOutPage = () => {
 										/>
 									)}
 									{!productsInCart.length > 0 && (
-										<div className="text-2xl text-center mb-8">
-											Nothing here, continue
-											shopping
+										<div className="text-2xl text-center mb-8 mt-8">
+											How bout you go treat yo
+											self
 										</div>
 									)}
 								</div>
@@ -67,7 +67,7 @@ const CartCheckOutPage = () => {
 										totalPrice += product.price;
 									}
 								)}
-								${totalPrice}
+								NOK{''} {totalPrice}
 							</p>
 						</div>
 						<p className="mt-0.5 text-sm text-gray-500">
@@ -86,7 +86,7 @@ const CartCheckOutPage = () => {
 							{!productsInCart.length > 0 && (
 								<a
 									href="/"
-									className="flex pointer-events-none items-center justify-center rounded-md border border-transparent bg-gray-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+									className="hidden pointer-events-none items-center justify-center rounded-md border border-transparent bg-gray-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
 								>
 									Checkout
 								</a>

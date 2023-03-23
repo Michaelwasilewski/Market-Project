@@ -22,7 +22,8 @@ const Cart = ({
 									<a href="#">{product.title}</a>
 								</h3>
 								<p className="ml-4">
-									${product.price}
+									NOK{''}
+									{product.price}
 								</p>
 							</div>
 							<p className="mt-1 text-sm text-gray-500">
